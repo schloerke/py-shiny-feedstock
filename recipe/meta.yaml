@@ -19,12 +19,12 @@ build:
 requirements:
   host:
     - pip
-    - python >={{ python_min }}
+    - python {{ python_min }}
     - setuptools >=60
     - wheel
     - setuptools_scm >=8
   run:
-    - python {{ python_min }}
+    - python >={{ python_min }}
     - typing-extensions >=4.10.0
     - uvicorn >=0.16.0
     - starlette
