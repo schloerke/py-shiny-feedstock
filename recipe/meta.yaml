@@ -10,16 +10,16 @@ source:
   sha256: 05c709c2a074b9e9f5a82065460815ff40bc686286bacfcab5195a69f3ae759b
 
 build:
-  number: 1
+  number: 2
   noarch: python
   entry_points:
     - shiny = shiny._main:main
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - pip
-    - python {{ python_min }}
+    - python >={{ python_min }}
     - setuptools >=60
     - wheel
     - setuptools_scm >=8
@@ -59,6 +59,8 @@ test:
     # for python<3.7)
     # - pip check
     - shiny --help
+    # Assert version isn't 0.0.0
+    - python -c "from importlib.metadata import version; assert version('shiny') == '{{ version }}'"
   requires:
     - pip
     - python {{ python_min }}
